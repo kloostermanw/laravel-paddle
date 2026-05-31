@@ -3,13 +3,14 @@
 namespace ProtoneMedia\LaravelPaddle\Tests;
 
 use Orchestra\Testbench\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 use ProtoneMedia\LaravelPaddle\Api\Api;
 use ProtoneMedia\LaravelPaddle\Api\InvalidDataException;
 use ProtoneMedia\LaravelPaddle\Api\Request;
 
 class RequestTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function it_can_set_the_request_payload_fluently()
     {
         $request = (new Api)->product()
@@ -25,7 +26,7 @@ class RequestTest extends TestCase
         ], $request->getData());
     }
 
-    /** @test */
+    #[Test]
     public function it_can_set_the_request_payload_by_array()
     {
         $request = (new Api)->product()->generatePayLink([
@@ -41,7 +42,7 @@ class RequestTest extends TestCase
         ], $request->getData());
     }
 
-    /** @test */
+    #[Test]
     public function it_validates_the_given_data()
     {
         $request = (new Api)->checkout()->getUserHistory([
@@ -52,7 +53,7 @@ class RequestTest extends TestCase
         $this->assertInstanceOf(Request::class, $request);
     }
 
-    /** @test */
+    #[Test]
     public function it_throws_an_exception_if_the_given_data_is_invalid()
     {
         try {

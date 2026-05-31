@@ -5,6 +5,7 @@ namespace ProtoneMedia\LaravelPaddle\Tests;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
 use Orchestra\Testbench\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 use ProtoneMedia\LaravelPaddle\Api\Api;
 use ProtoneMedia\LaravelPaddle\Api\PaddleApiException;
 use ProtoneMedia\LaravelPaddle\PaddleServiceProvider;
@@ -16,7 +17,7 @@ class ApiTest extends TestCase
         return [PaddleServiceProvider::class];
     }
 
-    /** @test */
+    #[Test]
     public function it_throws_an_exception_if_the_request_was_unsuccessful()
     {
         Http::fake(function (Request $request) {
@@ -34,7 +35,7 @@ class ApiTest extends TestCase
         $this->fail('Should have thrown PaddleApiException');
     }
 
-    /** @test */
+    #[Test]
     public function it_throws_an_exception_if_the_success_attribute_is_false_and_an_error_object_is_given()
     {
         Http::fake(function (Request $request) {
@@ -55,7 +56,7 @@ class ApiTest extends TestCase
         $this->fail('Should have thrown PaddleApiException');
     }
 
-    /** @test */
+    #[Test]
     public function it_returns_the_complete_json_response_if_the_response_key_doesnt_exist()
     {
         Http::fake(function (Request $request) {
@@ -71,7 +72,7 @@ class ApiTest extends TestCase
         $this->assertEquals(['key' => 'value'], $response);
     }
 
-    /** @test */
+    #[Test]
     public function it_throws_an_exception_if_the_success_attribute_is_false()
     {
         Http::fake(function (Request $request) {
@@ -91,7 +92,7 @@ class ApiTest extends TestCase
         $this->fail('Should have thrown PaddleApiException');
     }
 
-    /** @test */
+    #[Test]
     public function it_formats_the_uri_and_posts_the_config_with_the_payload()
     {
         config([
@@ -121,7 +122,7 @@ class ApiTest extends TestCase
         ])->send();
     }
 
-    /** @test */
+    #[Test]
     public function it_returns_the_response_attribute_if_the_request_was_successful()
     {
         Http::fake(function (Request $request) {
@@ -138,7 +139,7 @@ class ApiTest extends TestCase
         $this->assertEquals('Hello!', $response);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_make_a_get_request()
     {
         Http::fake(function (Request $request) {
@@ -158,7 +159,7 @@ class ApiTest extends TestCase
         $this->assertEquals('Hello!', $response);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_list_transactions_for_an_entity()
     {
         $request = (new Api)->product()->listTransactions('user', 123);
@@ -166,7 +167,7 @@ class ApiTest extends TestCase
         $this->assertEquals('https://vendors.paddle.com/api/2.0/user/123/transactions', $request->url());
     }
 
-    /** @test */
+    #[Test]
     public function it_can_create_an_one_off_chrage()
     {
         $request = (new Api)->subscription()->createOneOffCharge('123');
@@ -174,7 +175,7 @@ class ApiTest extends TestCase
         $this->assertEquals('https://vendors.paddle.com/api/2.0/subscription/123/charge', $request->url());
     }
 
-    /** @test */
+    #[Test]
     public function it_has_a_custom_host_for_the_checkouts_request()
     {
         $request = (new Api)->checkout()->getOrderDetails();
@@ -187,7 +188,7 @@ class ApiTest extends TestCase
         $this->assertEquals('https://checkout.paddle.com/api/2.0/prices', $request->url());
     }
 
-    /** @test */
+    #[Test]
     public function it_can_set_the_environment_to_sandbox()
     {
         config([

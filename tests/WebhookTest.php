@@ -4,6 +4,7 @@ namespace ProtoneMedia\LaravelPaddle\Tests;
 
 use Illuminate\Support\Facades\Event;
 use Orchestra\Testbench\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 use ProtoneMedia\LaravelPaddle\Events\SubscriptionCreated;
 use ProtoneMedia\LaravelPaddle\PaddleServiceProvider;
 
@@ -33,7 +34,7 @@ class WebhookTest extends TestCase
         ];
     }
 
-    /** @test */
+    #[Test]
     public function it_verifies_the_signature()
     {
         Event::fake();
@@ -48,7 +49,7 @@ class WebhookTest extends TestCase
         Event::assertNotDispatched(SubscriptionCreated::class);
     }
 
-    /** @test */
+    #[Test]
     public function it_maps_the_webhook_to_an_event_and_passes_the_data()
     {
         Event::fake();

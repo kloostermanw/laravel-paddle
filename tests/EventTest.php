@@ -5,13 +5,14 @@ namespace ProtoneMedia\LaravelPaddle\Tests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event as EventFacade;
 use Orchestra\Testbench\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 use ProtoneMedia\LaravelPaddle\Events\Event;
 use ProtoneMedia\LaravelPaddle\Events\GenericWebhook;
 use ProtoneMedia\LaravelPaddle\Events\SubscriptionCreated;
 
 class EventTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function it_can_have_payload_that_is_accessible()
     {
         $event = new SubscriptionCreated([
@@ -25,7 +26,7 @@ class EventTest extends TestCase
         $this->assertEquals(['team_id' => 20], $event->passthrough);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_check_if_payload_key_exists()
     {
         $event = new SubscriptionCreated([
@@ -38,7 +39,7 @@ class EventTest extends TestCase
         $this->assertTrue(empty($event->dummy_key));
     }
 
-    /** @test */
+    #[Test]
     public function it_can_fire_an_event_based_on_the_action_name()
     {
         EventFacade::fake();
@@ -53,7 +54,7 @@ class EventTest extends TestCase
         });
     }
 
-    /** @test */
+    #[Test]
     public function it_can_fire_an_event_even_if_the_data_has_no_alert_name()
     {
         EventFacade::fake();

@@ -4,6 +4,7 @@ namespace ProtoneMedia\LaravelPaddle\Tests;
 
 use Illuminate\Support\Facades\View;
 use Orchestra\Testbench\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 use ProtoneMedia\LaravelPaddle\PaddleServiceProvider;
 
 class DirectiveTest extends TestCase
@@ -13,7 +14,7 @@ class DirectiveTest extends TestCase
         return [PaddleServiceProvider::class];
     }
 
-    /** @test */
+    #[Test]
     public function it_includes_paddle_js_with_the_vendor_id()
     {
         config([
@@ -30,7 +31,7 @@ class DirectiveTest extends TestCase
         $this->assertStringContainsString('Paddle.Setup({"vendor":20});', $rendered);
     }
 
-    /** @test */
+    #[Test]
     public function it_includes_paddle_js_with_the_sandbox_environment()
     {
         config([
